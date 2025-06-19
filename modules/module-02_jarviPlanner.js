@@ -21,4 +21,4 @@ export async function execute(command) {
       <p class="inspire">Remember, greatness is in the grind. One day at a time, King.</p>
     </div>
   `;
-    }
+}
