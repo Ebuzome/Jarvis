@@ -3,35 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JarviCore OS</title>
+  <title>JarviCore</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="dark">
-  <div id="jarvicore">
-    <header>
-      <h1 class="jarvi-title">JarviCore</h1>
-      <div class="header-right">
-        <select id="personaSelect">
-          <option value="mentor">🧙‍♂️ Mentor</option>
-          <option value="genz">🎉 Gen Z Bestie</option>
-          <option value="engineer">🤖 Tech Engineer</option>
-          <option value="sage">🙏 Stoic Sage</option>
-        </select>
-        <button id="toggleTheme">🌓</button>
-      </div>
-    </header>
+<body class="chat-theme">
+  <div id="app">
+    
+    <!-- Sidebar (optional, like ChatGPT's model switcher) -->
+    <!-- You can skip this div if you want a fullscreen chat only layout -->
+    <!-- <aside class="sidebar">
+      <h2>JarviCore</h2>
+      <p>Modules coming soon...</p>
+    </aside> -->
 
-    <main id="chatbox">
-      <div class="message bot fade-in">🧠 <i>JarviCore is online.</i></div>
-    </main>
+    <div class="main-layout">
+      <!-- Header -->
+      <header class="chat-header">
+        <div class="chat-title">JarviCore</div>
+        <div class="chat-controls">
+          <select id="personaSelect">
+            <option value="mentor">🧙‍♂️ Mentor</option>
+            <option value="genz">🎉 Gen Z Bestie</option>
+            <option value="engineer">🤖 Tech Engineer</option>
+            <option value="sage">🙏 Stoic Sage</option>
+          </select>
+          <button id="toggleTheme">🌓</button>
+        </div>
+      </header>
 
-    <footer>
-      <button id="micBtn">🎤</button>
-      <input type="text" id="userInput" placeholder="Ask JarviCore anything..." />
-      <button id="sendBtn">→</button>
-    </footer>
+      <!-- Chat Messages -->
+      <main class="chat-main" id="chatbox">
+        <div class="message bot">🧠 JarviCore is online. Ready to serve.</div>
+      </main>
 
-    <div id="loading" class="hidden">Jarvi is thinking<span class="dots">...</span></div>
+      <!-- Input Footer -->
+      <footer class="chat-footer">
+        <button id="micBtn">🎤</button>
+        <input type="text" id="userInput" placeholder="Send a message..." autofocus />
+        <button id="sendBtn">➤</button>
+      </footer>
+
+      <!-- Typing indicator -->
+      <div id="loading" class="typing-indicator">Jarvi is thinking<span class="dots">...</span></div>
+    </div>
   </div>
 
   <script type="module" src="jarviBase.js"></script>
