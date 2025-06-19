@@ -71,6 +71,36 @@ button {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+.jarvi-card {
+  background: rgba(255, 215, 0, 0.07);
+  border: 1px solid gold;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-radius: 1rem;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+  animation: fadeIn 0.6s ease;
+}
+
+.jarvi-card h3 {
+  color: gold;
+  margin-bottom: 1rem;
+}
+
+.jarvi-card ul {
+  padding-left: 1.2rem;
+  line-height: 1.6;
+}
+
+.inspire {
+  margin-top: 1rem;
+  font-style: italic;
+  color: #aaa;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+  }
 
 button:hover {
   background: #ffcc00;
