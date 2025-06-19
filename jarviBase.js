@@ -33,5 +33,7 @@ function showLoader(show) { loading.classList.toggle("visible", show); }
 async function typeOutResponse(text, sender) { const msg = document.createElement("div"); msg.classList.add("message", sender); chatbox.appendChild(msg);
 
 for (let i = 0; i < text.length; i++) { msg.innerHTML += text.charAt(i); chatbox.scrollTop = chatbox.scrollHeight; await new Promise((r) => setTimeout(r, 10)); } }
-
+export async function execute(command) {
+  return "👋 Hello there! I’m JarviCore, your virtual assistant and coding bestie!";
+                                                                                            }
   
