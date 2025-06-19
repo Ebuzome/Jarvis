@@ -2,28 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JarviCore OS</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="container">
+<body class="dark">
+  <div id="jarvicore">
     <header>
-      <h1>JarviCore OS</h1>
-      <p class="subtitle">Modular AI | Offline–Online Intelligence | Designed for Kings</p>
+      <h1 class="jarvi-title">JarviCore</h1>
+      <div class="header-right">
+        <select id="personaSelect">
+          <option value="mentor">🧙‍♂️ Mentor</option>
+          <option value="genz">🎉 Gen Z Bestie</option>
+          <option value="engineer">🤖 Tech Engineer</option>
+          <option value="sage">🙏 Stoic Sage</option>
+        </select>
+        <button id="toggleTheme">🌓</button>
+      </div>
     </header>
 
-    <section id="console">
-      <div id="output"></div>
-      <div class="input-bar">
-        <input type="text" id="userInput" placeholder="Speak your will, Commander..." autofocus />
-        <button id="sendBtn">→</button>
-      </div>
-    </section>
+    <main id="chatbox">
+      <div class="message bot fade-in">🧠 <i>JarviCore is online.</i></div>
+    </main>
 
     <footer>
-      <p>Powered by Your Will. Forged in Code.</p>
+      <button id="micBtn">🎤</button>
+      <input type="text" id="userInput" placeholder="Ask JarviCore anything..." />
+      <button id="sendBtn">→</button>
     </footer>
+
+    <div id="loading" class="hidden">Jarvi is thinking<span class="dots">...</span></div>
   </div>
 
   <script type="module" src="jarviBase.js"></script>
