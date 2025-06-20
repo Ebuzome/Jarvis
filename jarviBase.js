@@ -1,37 +1,91 @@
-// jarviBase.js — JarviClone Phase 3 (Fully Functional Engine)
-
-import { routeCommand } from './core/router.js';
-
-let currentPersona = "mentor";
-
-const input = document.getElementById("userInput"); const sendBtn = document.getElementById("sendBtn"); const chatbox = document.getElementById("chatWindow"); const toggleTheme = document.getElementById("toggleTheme"); const personaSelect = document.getElementById("personaSelect"); const micBtn = document.getElementById("micBtn"); const typingIndicator = document.getElementById("typingIndicator");
-
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition; const recognizer = SpeechRecognition ? new SpeechRecognition() : null; if (recognizer) { recognizer.lang = 'en-US'; recognizer.continuous = false; recognizer.interimResults = false; }
-
-sendBtn.addEventListener("click", handleCommand); input.addEventListener("keydown", (e) => { if (e.key === "Enter") handleCommand(); });
-
-micBtn.addEventListener("click", () => { if (recognizer) recognizer.start(); });
-
-if (recognizer) { recognizer.onresult = (event) => { const transcript = event.results[0][0].transcript; input.value = transcript; handleCommand(); }; }
-
-toggleTheme.addEventListener("click", () => { document.body.classList.toggle("light-mode"); });
-
-personaSelect.addEventListener("change", () => { currentPersona = personaSelect.value; });
-
-async function handleCommand() { const command = input.value.trim(); if (!command) return;
-
-addMessage(command, "user"); input.value = ""; showTyping(true);
-
-try { const reply = await routeCommand(command, currentPersona); await typeOut(reply, "bot"); } catch (err) { await typeOut(⚠️ Error: ${err.message}, "bot"); }
-
-showTyping(false); }
-
-function addMessage(text, sender) { const msg = document.createElement("div"); msg.classList.add("message", sender); msg.innerHTML = text; chatbox.appendChild(msg); chatbox.scrollTop = chatbox.scrollHeight; }
-
-function showTyping(state) { typingIndicator.classList.toggle("visible", state); }
-
-async function typeOut(text, sender) { const msg = document.createElement("div"); msg.classList.add("message", sender); chatbox.appendChild(msg);
-
-for (let i = 0; i < text.length; i++) { msg.innerHTML += text[i]; chatbox.scrollTop = chatbox.scrollHeight; await new Promise(res => setTimeout(res, 10)); } }
-
-  
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM elements
+    const chatContainer = document.getElementById('chat-container');
+    const messageInput = document.getElementById('message-input');
+    const sendBtn = document.getElementById('send-btn');
+    const typingIndicator = document.getElementById('typing-indicator');
+    const personaButtons = document.querySelectorAll('.persona-btn');
+    
+    // State
+    let currentPersona = 'engineer';
+    
+    // Auto-resize textarea
+    messageInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+    
+    // Send message on Enter (without Shift)
+    messageInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+    
+    // Send button click handler
+    sendBtn.addEventListener('click', sendMessage);
+    
+    // Persona selection
+    personaButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            personaButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentPersona = btn.dataset.persona;
+        });
+    });
+    
+    // Send message function
+    function sendMessage() {
+        const message = messageInput.value.trim();
+        if (!message) return;
+        
+        // Add user message to chat
+        addMessageToChat(message, 'user');
+        
+        // Clear input
+        messageInput.value = '';
+        messageInput.style.height = '56px';
+        
+        // Show typing indicator
+        typingIndicator.style.display = 'flex';
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        
+        // Get response after delay
+        setTimeout(() => {
+            typingIndicator.style.display = 'none';
+            const response = getBotResponse(message, currentPersona);
+            addMessageToChat(response, 'bot');
+        }, 1500);
+    }
+    
+    // Add message to chat container
+    function addMessageToChat(text, sender) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message');
+        messageElement.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+        
+        const avatarDiv = document.createElement('div');
+        avatarDiv.classList.add('avatar');
+        avatarDiv.classList.add(sender === 'user' ? 'user-avatar' : 'bot-avatar');
+        
+        const avatarIcon = document.createElement('i');
+        avatarIcon.classList.add('fas', sender === 'user' ? 'fa-user' : 'fa-robot');
+        avatarDiv.appendChild(avatarIcon);
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.classList.add('message-content');
+        
+        const contentParagraph = document.createElement('p');
+        contentParagraph.textContent = text;
+        contentDiv.appendChild(contentParagraph);
+        
+        messageElement.appendChild(avatarDiv);
+        messageElement.appendChild(contentDiv);
+        
+        chatContainer.appendChild(messageElement);
+        
+        // Scroll to bottom
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+});
