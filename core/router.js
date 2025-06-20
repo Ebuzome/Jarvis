@@ -1,11 +1,30 @@
-// core/router.js import { applyPersonaTone } from './personaEngine.js';
+function getBotResponse(userMessage, persona) {
+    const lowerCaseMessage = userMessage.toLowerCase();
+    
+    // Route to appropriate module
+    if (lowerCaseMessage.includes('hi') || 
+        lowerCaseMessage.includes('hello') || 
+        lowerCaseMessage.includes('hey')) {
+        return applyPersonaTone(getBaseResponse(), persona);
+    }
+    
+    if (lowerCaseMessage.includes('plan') || 
+        lowerCaseMessage.includes('today') || 
+        lowerCaseMessage.includes('schedule')) {
+        return applyPersonaTone(getPlannerResponse(), persona);
+    }
+    
+    // Default response
+    return applyPersonaTone(getDefaultResponse(), persona);
+}
 
-export async function routeCommand(command, persona = "mentor") { const lower = command.toLowerCase();
-
-const routes = [ { match: ["hi", "hello", "hey"], modulePath: "../modules/module-01_jarviBase.js", }, { match: ["plan", "schedule", "task", "today"], modulePath: "../modules/module-02_jarviPlanner.js", } ];
-
-for (const route of routes) { if (route.match.some(word => lower.includes(word))) { try { const mod = await import(route.modulePath); const response = await mod.execute(command); return applyPersonaTone(persona, response); } catch (err) { return applyPersonaTone(persona, ⚠️ Could not load module: ${err.message}); } } }
-
-return applyPersonaTone(persona, 🤖 Sorry, I didn’t understand. Try something like "hi" or "plan my day".); }
-
-                             
+function getDefaultResponse() {
+    const responses = [
+        "I'm here to assist you with whatever you need!",
+        "Let me know how I can help you with that.",
+        "I'm always learning! Could you clarify what you need?",
+        "I'm here to support your goals. What would you like to accomplish?",
+        "I'd be happy to help with that. Could you provide more details?"
+    ];
+    return responses[Math.floor(Math.random() * responses.length)];
+      }
