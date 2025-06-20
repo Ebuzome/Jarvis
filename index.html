@@ -1,38 +1,68 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JarviCore</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JarvisCore - AI Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="jarvicore-app">
-    <!-- Header -->
-    <header class="jarvi-header">
-      <div class="jarvi-logo">JarviCore</div>
-      <div class="jarvi-header-controls">
-        <select id="personaSelect">
-          <option value="mentor">🧙 Mentor</option>
-          <option value="genz">🔥 Gen Z</option>
-          <option value="engineer">⚙️ Engineer</option>
-          <option value="sage">🌿 Sage</option>
-        </select>
-        <button id="toggleTheme">🌘</button>
-      </div>
-    </header><!-- Main Chat Body -->
-<main id="chatWindow" class="jarvi-chat-window">
-  <div class="message bot">💬 JarviCore is online. Ready for input.</div>
-</main>
+    <header>
+        <div class="logo">
+            <i class="fas fa-robot"></i>
+            <span>JarvisCore</span>
+        </div>
+        <div class="persona-selector">
+            <button class="persona-btn active" data-persona="engineer">Engineer</button>
+            <button class="persona-btn" data-persona="genz">Gen-Z</button>
+            <button class="persona-btn" data-persona="mentor">Mentor</button>
+            <button class="persona-btn" data-persona="sage">Sage</button>
+        </div>
+    </header>
+    
+    <div class="chat-container" id="chat-container">
+        <div class="message bot-message">
+            <div class="avatar bot-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+                <p>Hello! I'm JarvisCore, your AI assistant. How can I help you today?</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="typing-indicator" id="typing-indicator">
+        <div class="avatar bot-avatar">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="typing-dots">
+            <span>Jarvis is typing</span>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    
+    <div class="input-container">
+        <div class="input-wrapper">
+            <textarea 
+                id="message-input" 
+                placeholder="Message JarvisCore..." 
+                rows="1"
+                autofocus
+            ></textarea>
+            <button id="send-btn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
 
-<!-- Typing Indicator -->
-<div id="typingIndicator" class="typing-indicator">Jarvi is typing<span class="dots">...</span></div>
-
-<!-- Footer / Input Area -->
-<footer class="jarvi-footer">
-  <button id="micBtn">🎤</button>
-  <input id="userInput" type="text" placeholder="Type a message..." autocomplete="off" />
-  <button id="sendBtn">➤</button>
-</footer>
-
-  </div>  <script type="module" src="jarviBase.js"></script></body>
-  </html>
+    <!-- JavaScript Files -->
+    <script src="jarviBase.js"></script>
+    <script src="core/router.js"></script>
+    <script src="core/personaEngine.js"></script>
+    <script src="modules/module-01_jarviBase.js"></script>
+    <script src="modules/module-02_jarviPlanner.js"></script>
+</body>
+              </html>
