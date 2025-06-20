@@ -1,1 +1,38 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JarviCore</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="jarvicore-app">
+    <!-- Header -->
+    <header class="jarvi-header">
+      <div class="jarvi-logo">JarviCore</div>
+      <div class="jarvi-header-controls">
+        <select id="personaSelect">
+          <option value="mentor">🧙 Mentor</option>
+          <option value="genz">🔥 Gen Z</option>
+          <option value="engineer">⚙️ Engineer</option>
+          <option value="sage">🌿 Sage</option>
+        </select>
+        <button id="toggleTheme">🌘</button>
+      </div>
+    </header><!-- Main Chat Body -->
+<main id="chatWindow" class="jarvi-chat-window">
+  <div class="message bot">💬 JarviCore is online. Ready for input.</div>
+</main>
 
+<!-- Typing Indicator -->
+<div id="typingIndicator" class="typing-indicator">Jarvi is typing<span class="dots">...</span></div>
+
+<!-- Footer / Input Area -->
+<footer class="jarvi-footer">
+  <button id="micBtn">🎤</button>
+  <input id="userInput" type="text" placeholder="Type a message..." autocomplete="off" />
+  <button id="sendBtn">➤</button>
+</footer>
+
+  </div>  <script type="module" src="jarviBase.js"></script></body>
+  </html>
