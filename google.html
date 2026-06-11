@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Sign in - Google Accounts</title>
+  <style>
+    /* RESET & BASE – clean, modern, exactly like Google sign-in */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #fff;
+      font-family: 'Google Sans', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 16px;
+    }
+
+    /* main card – identical to Google's sign-in panel */
+    .card {
+      max-width: 450px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 48px 40px 36px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08), 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.2s;
+    }
+
+    /* Google logo */
+    .logo {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .logo svg {
+      width: 75px;
+      height: 24px;
+      display: inline-block;
+    }
+
+    /* headings */
+    h1 {
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.2;
+      color: #1f1f1f;
+      text-align: center;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+    .subhead {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 400;
+      color: #1f1f1f;
+      margin-bottom: 32px;
+    }
+
+    /* floating label input - exact style */
+    .field {
+      margin-bottom: 24px;
+      position: relative;
+      width: 100%;
+    }
+    .field input {
+      width: 100%;
+      padding: 16px 16px 8px 16px;
+      font-size: 16px;
+      font-family: inherit;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      outline: none;
+      background: transparent;
+      transition: all 0.2s;
+      color: #1f1f1f;
+    }
+    .field input:focus {
+      border-color: #0b57d0;
+      border-width: 2px;
+      padding-bottom: 7px;
+      padding-top: 15px;
+    }
+    .field label {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: #5f6368;
+      pointer-events: none;
+      background: #fff;
+      padding: 0 4px;
+      transition: 0.1s ease-out;
+      font-weight: 400;
+    }
+    .field input:focus ~ label,
+    .field input:not(:placeholder-shown) ~ label {
+      top: 0;
+      transform: translateY(-50%);
+      font-size: 12px;
+      color: #0b57d0;
+    }
+    .field input::placeholder {
+      opacity: 0;
+    }
+
+    /* forgot email button */
+    .forgot-link {
+      margin-bottom: 32px;
+    }
+    .forgot-link button {
+      background: none;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: inherit;
+      color: #0b57d0;
+      cursor: pointer;
+      padding: 4px 0;
+    }
+    .forgot-link button:hover {
+      background: rgba(11, 87, 208, 0.04);
+      border-radius: 12px;
+      text-decoration: underline;
+    }
+
+    /* guest mode text */
+    .guest-text {
+      font-size: 14px;
+      color: #5f6368;
+      line-height: 1.4286;
+      margin-top: 32px;
+    }
+    .guest-text a {
+      color: #0b57d0;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .guest-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* action row: create account (with dropdown icon) + next button */
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .create-btn {
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: #0b57d0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .create-btn:hover {
+      background: rgba(11, 87, 208, 0.04);
+    }
+    .create-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: #0b57d0;
+    }
+    .next-btn {
+      background: #0b57d0;
+      border: none;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: white;
+      padding: 10px 24px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+      min-width: 88px;
+    }
+    .next-btn:hover {
+      background: #0b4bc2;
+      box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+    }
+
+    /* footer: language selector + links */
+    .footer {
+      margin-top: 56px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #ecedef;
+      padding-top: 24px;
+      font-size: 12px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-family: inherit;
+      color: #1f1f1f;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 8px;
+    }
+    .lang-btn:hover {
+      background: rgba(0,0,0,0.04);
+    }
+    .lang-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: #5f6368;
+    }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+    }
+    .footer-links a {
+      color: #5f6368;
+      text-decoration: none;
+    }
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* focus outlines for accessibility */
+    button:focus-visible, input:focus-visible, a:focus-visible {
+      outline: 2px solid #0b57d0;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* responsive: stack on smaller screens */
+    @media (max-width: 500px) {
+      .card {
+        padding: 32px 24px 28px;
+      }
+      .actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+      }
+      .next-btn {
+        width: 100%;
+        text-align: center;
+      }
+      .create-btn {
+        justify-content: center;
+      }
+      .footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <!-- Google logo (exact replica from original) -->
+  <div class="logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 24" width="75" height="24" aria-label="Google">
+      <path fill="#4285F4" d="M67.954 16.303c-1.033 0-1.882-.163-2.523-.49-.64-.326-1.08-.758-1.319-1.296-.24-.538-.36-1.14-.36-1.807 0-.632.116-1.196.35-1.692.232-.496.56-.888.984-1.177.424-.288.915-.432 1.473-.432.58 0 1.064.127 1.453.382.39.255.68.623.872 1.103.19.48.286 1.066.286 1.758v.593h-3.923v.97c0 .858.22 1.542.663 2.053.442.51 1.07.766 1.886.766.48 0 .909-.08 1.288-.239.38-.16.69-.365.931-.617l.757.902c-.32.36-.72.637-1.201.83-.48.193-1.02.29-1.62.29zm-.328-5.345c-.392 0-.714.117-.965.35-.252.234-.404.53-.456.887h2.504c-.024-.702-.283-1.237-.776-1.237h-.307zM53.13 16.95c-.67 0-1.202-.19-1.594-.57-.393-.38-.589-.917-.589-1.61 0-.675.196-1.206.59-1.593.393-.387.94-.58 1.643-.58.476 0 .892.09 1.247.27.355.18.62.43.795.75.174.32.26.69.26 1.11 0 .134-.006.277-.018.43h-2.98c.036.495.2.874.492 1.138.292.264.666.396 1.122.396.335 0 .633-.068.895-.204.26-.136.47-.305.63-.51l.848.81c-.234.274-.516.488-.846.643-.33.155-.724.232-1.183.232h-.06zm-1.058-4.392c.24 0 .448.07.624.21.176.14.277.35.303.63h-1.78c.02-.263.114-.475.282-.637.168-.162.38-.243.636-.243h-.065zM43.774 16.95c-.576 0-1.056-.168-1.44-.504-.384-.336-.576-.822-.576-1.458 0-.64.188-1.128.565-1.465.376-.336.884-.504 1.524-.504.61 0 1.114.164 1.512.492.397.328.595.814.595 1.458 0 .608-.194 1.078-.58 1.41-.387.33-.92.495-1.6.495v.076zm0-.833c.37 0 .66-.114.87-.342.21-.228.314-.54.314-.938 0-.398-.104-.706-.313-.925-.208-.22-.498-.33-.87-.33-.36 0-.647.11-.86.33-.213.22-.32.528-.32.925 0 .397.107.71.32.938.213.228.5.342.86.342zM36.975 16.95c-.368 0-.685-.098-.95-.293-.266-.195-.4-.48-.4-.855 0-.338.116-.6.347-.787.23-.186.56-.313.987-.38.43-.07.935-.106 1.512-.106.212 0 .416.01.613.03.01-.425-.06-.747-.21-.967-.15-.22-.404-.33-.76-.33-.32 0-.598.092-.834.276-.236.184-.37.404-.402.66l-1.023-.14c.07-.424.265-.782.585-1.075.32-.292.738-.438 1.254-.438.49 0 .9.13 1.23.39.33.26.495.656.495 1.19v3.076h-1.1v-.773c-.203.274-.46.48-.77.62-.31.14-.64.21-.992.21zm.243-.816c.27 0 .514-.068.73-.204.215-.136.382-.33.5-.58v-1.232c-.12-.023-.258-.038-.414-.045-.156-.008-.317-.012-.483-.012-.428 0-.73.088-.907.264-.176.176-.264.415-.264.716 0 .283.09.5.27.65.18.15.4.225.664.225h-.096zM27.314 16.95c-.637 0-1.148-.174-1.532-.522-.384-.348-.576-.837-.576-1.467 0-.635.19-1.125.57-1.47.38-.345.89-.518 1.53-.518.62 0 1.12.173 1.5.518.38.345.57.835.57 1.47 0 .63-.19 1.12-.57 1.467-.38.348-.88.522-1.5.522h.008zm0-.834c.36 0 .648-.115.864-.345.216-.23.324-.54.324-.93 0-.387-.108-.693-.324-.918-.216-.225-.504-.338-.864-.338-.364 0-.653.113-.867.338-.214.225-.322.53-.322.918 0 .39.108.7.322.93.214.23.503.345.867.345zM19.434 16.95c-.476 0-.87-.124-1.182-.372-.312-.248-.468-.595-.468-1.042 0-.435.153-.78.46-1.035.306-.255.74-.427 1.302-.517.56-.09 1.23-.105 2.013-.046.006-.393-.047-.684-.16-.873-.112-.19-.314-.284-.605-.284-.26 0-.484.08-.672.24-.188.16-.296.354-.324.582l-1.058-.095c.048-.48.247-.868.597-1.164.35-.296.834-.444 1.452-.444.57 0 1.03.13 1.38.39.35.26.525.67.525 1.23v3.135h-1.1v-.676c-.186.226-.417.403-.693.53-.276.127-.585.19-.927.19zm.176-.83c.31 0 .578-.086.804-.258.226-.172.374-.402.444-.69v-.95c-.565-.04-1.025.024-1.38.19-.354.166-.53.414-.53.746 0 .298.104.522.313.672.208.15.46.225.756.225h-.408zM11.794 14.814h-2.81v2.056H9.45v-4.864h2.344c.51 0 .934.123 1.27.368.336.245.504.594.504 1.05 0 .468-.168.822-.504 1.08-.336.257-.76.385-1.27.385v-.075zm0-.822c.33 0 .594-.1.792-.3.198-.2.297-.47.297-.81 0-.34-.1-.605-.297-.8-.198-.196-.462-.294-.792-.294H9.45v2.204h2.344z"/>
+    </svg>
+  </div>
+
+  <h1>Sign in</h1>
+  <div class="subhead">Use your Google Account</div>
+
+  <!-- Email / phone field -->
+  <div class="field">
+    <input type="email" id="email" placeholder=" " autocomplete="username">
+    <label for="email">Email or phone</label>
+  </div>
+
+  <!-- Forgot email? link as a button -->
+  <div class="forgot-link">
+    <button type="button" id="forgotBtn">Forgot email?</button>
+  </div>
+
+  <!-- Guest mode text -->
+  <div class="guest-text">
+    Not your computer? Use Guest mode to sign in privately.
+    <a href="#" id="guestLink">Learn more about using Guest mode</a>
+  </div>
+
+  <!-- Bottom actions: create account (with chevron) + Next button -->
+  <div class="actions">
+    <button class="create-btn" id="createBtn">
+      Create account
+      <svg viewBox="0 0 24 24" width="18" height="18">
+        <path d="M7 10l5 5 5-5z"/>
+      </svg>
+    </button>
+    <button class="next-btn" id="nextBtn">Next</button>
+  </div>
+
+  <!-- Footer: language selector + help/privacy/terms -->
+  <div class="footer">
+    <button class="lang-btn" id="langBtn">
+      <svg viewBox="0 0 24 24" width="16" height="16">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+        <path d="M12 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 9c-2.7 0-5.8 1.29-6 2v1h12v-1c-.2-.71-3.3-2-6-2z"/>
+      </svg>
+      English (United States)
+    </button>
+    <div class="footer-links">
+      <a href="#">Help</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+</div>
+
+<!-- Minimal non‑intrusive demo alerts to simulate static UI (no real function, just visual) -->
+<script>
+  (function() {
+    // These are purely to match the expected "click feedback" without breaking the aesthetic.
+    // No actual redirect or authentication.
+    const next = document.getElementById('nextBtn');
+    const forgot = document.getElementById('forgotBtn');
+    const create = document.getElementById('createBtn');
+    const lang = document.getElementById('langBtn');
+    const guest = document.getElementById('guestLink');
+
+    if (next) next.addEventListener('click', (e) => { e.preventDefault(); alert("Demo: sign-in would proceed (static replica)."); });
+    if (forgot) forgot.addEventListener('click', (e) => { e.preventDefault(); alert("Demo: 'Forgot email?' flow (static mockup)."); });
+    if (create) create.addEventListener('click', (e) => { e.preventDefault(); alert("Demo: 'Create account' options (static simulation)."); });
+    if (lang) lang.addEventListener('click', (e) => { e.preventDefault(); alert("Demo: language selector (static version)."); });
+    if (guest) guest.addEventListener('click', (e) => { e.preventDefault(); alert("Demo: Learn more about Guest mode."); });
+  })();
+</script>
+</body>
+</html>
